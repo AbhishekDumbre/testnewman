@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "d3181ec6-bdbc-4d7d-99c6-e7b68012ef16",
+		"name": "postman_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27775077",
+		"_collection_link": "https://red-flare-803186.postman.co/workspace/40148462-ae6f-41be-acfe-76b89c08248c/collection/27775077-d3181ec6-bdbc-4d7d-99c6-e7b68012ef16?action=share&source=collection_link&creator=27775077"
+	},
+	"item": [
+		{
+			"name": "first",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsondata=pm.response.json();\r",
+							"\r",
+							"pm.environment.set('userid',jsondata.id);\r",
+							"\r",
+							"pm.test('to cheack status code',function(){\r",
+							"   pm.response.to.have.status(200);\r",
+							"})\r",
+							"pm.test('to cheack the data',function(){\r",
+							"    pm.expect(jsondata.users[0]).to.have.property('id').to.be.a('number');\r",
+							"    pm.expect(jsondata.users[0]).to.have.property('firstName').to.be.a('string');\r",
+							"    pm.expect(jsondata.users[0]).to.have.property('email').to.be.a('string');\r",
+							"    pm.expect(jsondata.users[0]).to.have.property('username').to.be.a('string');\r",
+							"    pm.expect(jsondata.users[0]).to.have.property('password').to.be.a('string');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/user/search?q=John",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "John"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

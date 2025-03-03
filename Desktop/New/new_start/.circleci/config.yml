@@ -1,0 +1,23 @@
+
+version: 2.1
+
+jobs:
+  Test_Execution:
+    docker:
+      - image: node:20.9.0
+    steps:
+      - checkout
+      - run:
+          name: "Install Dependencies"
+          command: npm install newman newman-reporter-html -g
+      - run:
+          name: "Test Execution"
+          command: newman run data/tests.json -e data/test_env.json -r cli,html
+      - store_artifacts:
+          path: newman/
+          destination: artifacts
+
+workflows:
+  NewmanSuite:
+    jobs:
+      - Test_Execution
